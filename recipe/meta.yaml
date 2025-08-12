@@ -16,20 +16,20 @@ source:
     - fix_ppc64le_set_mempolicy_home_node.patch  # [ppc64le]
 
 build:
-  number: 3
+  number: 0
   skip: true  # [not linux]
 
 requirements:
   build:
-    - automake
+    - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     - autoconf
+    - automake
     - coreutils
     - grep
     - libtool
-    - sed
-    - {{ compiler('c') }}
-    - {{ stdlib('c') }}
     - make
+    - sed
 
 outputs:
   - name: libnuma
@@ -39,15 +39,15 @@ outputs:
         - {{ pin_subpackage('libnuma', max_pin='x') }}
     requirements:
       build:
-        - automake
+        - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - autoconf
+        - automake
         - coreutils
         - grep
         - libtool
-        - sed
-        - {{ compiler('c') }}
-        - {{ stdlib('c') }}
         - make
+        - sed
     test:
       commands:
         - test -f $PREFIX/lib/libnuma.so
@@ -61,15 +61,15 @@ outputs:
     script: install-numactl.sh
     requirements:
       build:
-        - automake
+        - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - autoconf
+        - automake
         - coreutils
         - grep
         - libtool
-        - sed
-        - {{ compiler('c') }}
-        - {{ stdlib('c') }}
         - make
+        - sed
       host:
         - libnuma
       run:
@@ -79,6 +79,7 @@ outputs:
         - numactl --show  # [not aarch64 and not ppc64le]
     about:
       license: GPL-2.0-only
+      license_family: GPL
       license_file: LICENSE.GPL2
 
 about:
@@ -89,6 +90,7 @@ about:
     programs with a specific NUMA policy and a libnuma shared library
     ("NUMA API") to set NUMA policy in applications.
   license: LGPL-2.1-only
+  license_family: LGPL
   license_file: LICENSE.LGPL2.1
   dev_url: https://github.com/numactl/numactl
   doc_url: https://linux.die.net/man/8/numactl
