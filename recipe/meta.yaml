@@ -26,7 +26,6 @@ requirements:
     - autoconf
     - automake
     - coreutils
-    #- grep
     - libtool
     - make
     - sed
@@ -44,7 +43,6 @@ outputs:
         - autoconf
         - automake
         - coreutils
-        #- grep
         - libtool
         - make
         - sed
@@ -52,6 +50,10 @@ outputs:
       commands:
         - test -f $PREFIX/lib/libnuma.so
         - test ! -f $PREFIX/lib/libnuma.a
+        - test -f $PREFIX/lib/pkgconfig/numa.pc
+        - test -f $PREFIX/include/numa.h
+        - test -f $PREFIX/include/numacompat1.h
+        - test -f $PREFIX/include/numaif.h
         - test -f $PREFIX/lib/pkgconfig/numa.pc
 
   - name: numactl
@@ -66,17 +68,22 @@ outputs:
         - autoconf
         - automake
         - coreutils
-        #- grep
         - libtool
         - make
         - sed
       host:
-        - libnuma
+        - libnuma {{ version.split('.')[0] }}
       run:
         - {{ pin_subpackage('libnuma', exact=True) }}
     test:
       commands:
         - numactl --show  # [not aarch64 and not ppc64le]
+        - test -f $PREFIX/bin/memhog
+        - test -f $PREFIX/bin/migratepages
+        - test -f $PREFIX/bin/migspeed
+        - test -f $PREFIX/bin/numactl
+        - test -f $PREFIX/bin/numademo
+        - test -f $PREFIX/bin/numastat
     about:
       license: GPL-2.0-only
       license_family: GPL
