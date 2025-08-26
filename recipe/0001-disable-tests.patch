@@ -1,0 +1,39 @@
+From 4e48ad26d921b9a6e9c9838fc1b754d45ed49773 Mon Sep 17 00:00:00 2001
+From: Andrii Osipov <aosipov@anaconda.com>
+Date: Tue, 26 Aug 2025 01:12:09 -0700
+Subject: [PATCH] disable tests
+
+---
+ Makefile.am | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index da01d27..fb57c33 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -130,14 +130,18 @@ test: all $(check_PROGRAMS) regress1 regress2 test_numademo
+ 
+ TESTS_ENVIRONMENT = builddir='$(builddir)'; export builddir;
+ 
++# cat: /sys/devices/system/node/node/cpulist: No such file or directory
++# 	test/bind_range
++# no numa support in kernel
++# 	test/distance
++# no numa
++# 	test/nodemap
++# 	test/numademo
++# numactl --hardware doesnt report all nodes
++#	test/checktopology 
+ TESTS = \
+-	test/bind_range \
+ 	test/checkaffinity \
+-	test/checktopology \
+-	test/distance \
+ 	test/move_pages \
+-	test/nodemap \
+-	test/numademo \
+ 	test/regress \
+ 	test/tbitmap
+ 
+-- 
+2.39.3 (Apple Git-146)
