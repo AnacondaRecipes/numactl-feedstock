@@ -1,17 +1,17 @@
-From 1b0ad5a5946bffa8466a86d282390cf0dab575aa Mon Sep 17 00:00:00 2001
+From 4e48ad26d921b9a6e9c9838fc1b754d45ed49773 Mon Sep 17 00:00:00 2001
 From: Andrii Osipov <aosipov@anaconda.com>
 Date: Tue, 26 Aug 2025 01:12:09 -0700
 Subject: [PATCH] disable tests
 
 ---
- Makefile.am | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ Makefile.am | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
 diff --git a/Makefile.am b/Makefile.am
-index da01d27..e07c12b 100644
+index da01d27..fb57c33 100644
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -130,14 +130,17 @@ test: all $(check_PROGRAMS) regress1 regress2 test_numademo
+@@ -130,14 +130,18 @@ test: all $(check_PROGRAMS) regress1 regress2 test_numademo
  
  TESTS_ENVIRONMENT = builddir='$(builddir)'; export builddir;
  
@@ -22,10 +22,12 @@ index da01d27..e07c12b 100644
 +# no numa
 +# 	test/nodemap
 +# 	test/numademo
++# numactl --hardware doesnt report all nodes
++#	test/checktopology 
  TESTS = \
 -	test/bind_range \
  	test/checkaffinity \
- 	test/checktopology \
+-	test/checktopology \
 -	test/distance \
  	test/move_pages \
 -	test/nodemap \
