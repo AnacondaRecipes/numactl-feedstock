@@ -9,5 +9,5 @@ autoreconf --install --symlink
     --enable-shared=yes \
     --verbose
 
-make V=1
+make V=1 -j${CPU_COUNT}
 make check || { cat ./test-suite.log && false; }

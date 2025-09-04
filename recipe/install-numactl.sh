@@ -1,3 +1,3 @@
 set -eu
 
-make install
+make install -j${CPU_COUNT}
