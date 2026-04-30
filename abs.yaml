@@ -1,3 +1,13 @@
+aggregate_check: false
+
+upload_without_merge: true
+
+upload_channels:
+  - services
+
+channels:
+  - services
+
 # Required for glibc >= 2.28
 pkg_build_image_tag: main-rockylinux-8
 build_env_vars:
